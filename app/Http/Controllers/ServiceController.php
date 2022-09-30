@@ -14,7 +14,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return "index is working";
+        $services = Service::all();
+        return view('admin.services.index',compact(['services']));
     }
 
     /**
@@ -24,7 +25,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.services.add');
     }
 
     /**
@@ -35,7 +36,9 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $service = Service::create($request->except(['_token']));
+
+        return back();
     }
 
     /**
@@ -57,7 +60,9 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //
+        $service = Service::find($service);
+
+        return view('admin.services.edit',compact(['service']));
     }
 
     /**
@@ -67,9 +72,16 @@ class ServiceController extends Controller
      * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, $id)
     {
-        //
+        //$service = Service::find($service)->update($request->except(['_token']));
+        //$service->update($request->except(['_token']));
+
+        $id = (int)$id;
+
+        Service::where('id',1)->update($request->except(['_token','_method']));
+
+        return back();
     }
 
     /**

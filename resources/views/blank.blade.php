@@ -10,7 +10,6 @@
 
 
 
-</div>
 
 </div>
 <!-- /.container-fluid -->

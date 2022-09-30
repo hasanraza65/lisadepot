@@ -21,23 +21,12 @@ Route::get('/buy-service', function () {
     return view('client.services');
 });
 
-/*
-Route::get('/services', function () {
-    return view('admin.services.index');
-});
+///////////////////
+/* ADMIN ROUTES */
+///////////////////
 
-Route::get('/services/create', function () {
-    return view('admin.services.add');
-});
-
-Route::get('/services/edit', function () {
-    return view('admin.services.edit');
-}); */
-
-//Route::get('/services', App\Http\Controllers\ServiceController::class);
-
-        //...
-        Route::resource('service', '\App\Http\Controllers\ServiceController');
+//service route
+Route::resource('service', '\App\Http\Controllers\ServiceController');
 
 
 
