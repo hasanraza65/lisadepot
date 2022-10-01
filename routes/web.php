@@ -17,9 +17,10 @@ Route::get('/', function () {
     return view('client.index');
 });
 
+/*
 Route::get('/buy-service', function () {
     return view('client.services');
-});
+}); */
 
 ///////////////////
 /* ADMIN ROUTES */
@@ -27,6 +28,11 @@ Route::get('/buy-service', function () {
 
 //service route
 Route::resource('service', '\App\Http\Controllers\ServiceController');
+
+///////////////////
+/* CLIENT ROUTES */
+///////////////////
+Route::get('/buy-services', [App\Http\Controllers\ClientController::class, 'services']); 
 
 
 

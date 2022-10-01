@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -36,9 +37,34 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+
+        if(isset($_FILES['file'])){
+            if ($_FILES['file']['name']) {
+                if (!$_FILES['file']['error']) {
+                   
+                    $filetestname = request()->file('file');
+                    $destination = Storage::disk('public')->put('/images', $filetestname);
+                    //echo '/images/' . $filename;
+                    
+                    $request->merge([
+                        'banner'=> $destination,
+                    ]);
+                
+                } else {
+                    $request->merge([
+                        'banner'=> '',
+                    ]);
+                    echo 'Ooops!  Your upload triggered the following error:  '.$_FILES['file']['error'];
+                }
+                
+              }
+
+        }
+
         $service = Service::create($request->except(['_token']));
 
-        return back();
+        $message = "Service created successfully";
+        return back()->withMessage($message);
     }
 
     /**
@@ -77,11 +103,33 @@ class ServiceController extends Controller
         //$service = Service::find($service)->update($request->except(['_token']));
         //$service->update($request->except(['_token']));
 
-        $id = (int)$id;
+        if(isset($_FILES['file'])){
+            if ($_FILES['file']['name']) {
+                if (!$_FILES['file']['error']) {
+                   
+                    $filetestname = request()->file('file');
+                    $destination = Storage::disk('public')->put('/images', $filetestname);
+                    //echo '/images/' . $filename;
+                    
+                    $request->merge([
+                        'banner'=> $destination,
+                    ]);
+                
+                } else {
+                    $request->merge([
+                        'banner'=> $request->oldfile,
+                    ]);
+                    echo 'Ooops!  Your upload triggered the following error:  '.$_FILES['file']['error'];
+                }
+                
+              }
 
-        Service::where('id',1)->update($request->except(['_token','_method']));
+        }
 
-        return back();
+        Service::where('id',$id)->update($request->except(['_token','_method','oldfile','file']));
+
+        $message = "Service updated successfully";
+        return back()->withMessage($message);
     }
 
     /**

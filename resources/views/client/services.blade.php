@@ -9,58 +9,26 @@
 <h1 class="h3 mb-4 text-gray-800">Services</h1>
 
 <div class="row mt-2 mb-2">
-
+    
+@foreach($services as $data)
     <!--- grid card --->
     <div class="col-md-3 mt-4">
         <div class="card" style="width: 18rem;">
+            
+            @if($data->banner != null && $data->banner != "")
+            <img src="/storage/{{$data->banner}}" class="card-img-top" alt="...">
+            @else 
             <img src="/assets/img/amazonservice.png" class="card-img-top" alt="...">
+            @endif
             <div class="card-body">
-                <h5 class="card-title">Amazon Service</h5>
-                <p class="card-text">We Provide Amazon courses and virtual assistant service.</p>
+                <h5 class="card-title">{{$data->name}}</h5>
+                
                 <a href="#" class="btn btn-primary">Buy Now</a>
             </div>
         </div>
     </div>
     <!--- grid card ending--->
-
-    <!--- grid card --->
-    <div class="col-md-3 mt-4">
-        <div class="card" style="width: 18rem;">
-            <img src="/assets/img/amazonservice.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Amazon Service</h5>
-                <p class="card-text">We Provide Amazon courses and virtual assistant service.</p>
-                <a href="#" class="btn btn-primary">Buy Now</a>
-            </div>
-        </div>
-    </div>
-    <!--- grid card ending--->
-
-    <!--- grid card --->
-    <div class="col-md-3 mt-4">
-        <div class="card" style="width: 18rem;">
-            <img src="/assets/img/amazonservice.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Amazon Service</h5>
-                <p class="card-text">We Provide Amazon courses and virtual assistant service.</p>
-                <a href="#" class="btn btn-primary">Buy Now</a>
-            </div>
-        </div>
-    </div>
-    <!--- grid card ending--->
-
-    <!--- grid card --->
-    <div class="col-md-3 mt-4">
-        <div class="card" style="width: 18rem;">
-            <img src="/assets/img/amazonservice.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Amazon Service</h5>
-                <p class="card-text">We Provide Amazon courses and virtual assistant service.</p>
-                <a href="#" class="btn btn-primary">Buy Now</a>
-            </div>
-        </div>
-    </div>
-    <!--- grid card ending--->
+@endforeach    
 
 </div>
 

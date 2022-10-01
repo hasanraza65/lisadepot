@@ -13,8 +13,12 @@
 <hr class="sidebar-divider my-0">
 
 <!-- Nav Item - Dashboard -->
+@if (request()->is('/'))
 <li class="nav-item active">
-    <a class="nav-link" href="index.html">
+@else 
+<li class="nav-item">
+@endif    
+    <a class="nav-link" href="/">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
 </li>
@@ -28,7 +32,11 @@
 </div>
 
 <!-- Nav Item - Services Menu -->
+@if (request()->is('service') || Request::is('service/*') )
+<li class="nav-item active">
+@else   
 <li class="nav-item">
+@endif     
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#services"
         aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-cog"></i>
@@ -36,6 +44,8 @@
     </a>
     <div id="services" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/service">All Services</a>
+            <a class="collapse-item" href="/service/create">Add Service</a>
             <a class="collapse-item" href="/buy-service">Buy New Service</a>
             <a class="collapse-item" href="/my-services">My Services</a>
         </div>

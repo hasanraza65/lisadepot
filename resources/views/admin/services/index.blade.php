@@ -26,16 +26,23 @@
         </tr>
         @foreach($services as $data)
         <tr>
-            <td>1</td>
-            <td></td>
-            <td>Amazon</td>
-            <td>$500</td>
+            <td>{{$loop->iteration}}</td>
             <td>
-                <a href="/service/1/edit" class="btn btn-primary mb-2">Edit</a>
+                @if($data->banner != "" && $data->banner != null)
+                <img src="storage/{{$data->banner}}" width="80" height="auto">
+                @endif
+            </td>
+            <td>{{$data->name}}</td>
+            <td>${{$data->price}}</td>
+            <td>
+                
                 <form method="post" action="{{ route('service.destroy',$data->id) }}">
+
+                    <a type="button" href="/service/{{$data->id}}/edit" class="btn btn-primary m-1">Edit</a>
+
                     @csrf
                     @method('DELETE')
-                    <input type="submit" value="Delete" class="btn btn-danger">
+                    <input type="submit" value="Delete" class="btn btn-danger m-1">
                 </form>
             </td>
         </tr>
