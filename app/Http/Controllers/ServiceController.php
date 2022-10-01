@@ -92,6 +92,10 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        //$service = Service::find($id);
+        $service->delete(); 
+
+        $message = "Service Has Been Deleted";
+        return back()->withMessage($message);
     }
 }
