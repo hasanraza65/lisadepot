@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('client.index');
 });
 
+Route::get('/client-progress', function () {
+    return view('admin.progress.index');
+});
+
 /*
 Route::get('/buy-service', function () {
     return view('client.services');
@@ -28,6 +32,8 @@ Route::get('/buy-service', function () {
 
 //service route
 Route::resource('service', '\App\Http\Controllers\ServiceController');
+
+Route::resource('/client-progress', '\App\Http\Controllers\ClientProgressController');
 
 ///////////////////
 /* CLIENT ROUTES */

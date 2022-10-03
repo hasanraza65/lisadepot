@@ -19,26 +19,29 @@
     <table class="table">
         <tr>
             <th>ID</th>
-            <th>Service Banner</th>
-            <th>Service Name</th>
-            <th>Price</th>
+            <th>User</th>
+            <th>Account Id</th>
+            <th>Total Sales</th>
+            <th>Total Profit</th>
+            <th>Total Loss</th>
+            <th>Today Card Charge</th>
+            <th>Date</th>
             <th>Action</th>
         </tr>
-        @foreach($services as $data)
+        @foreach($progress as $data)
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td>
-                @if($data->banner != "" && $data->banner != null)
-                <img src="storage/{{$data->banner}}" width="80" height="auto">
-                @endif
-            </td>
-            <td>{{$data->name}}</td>
-            <td>${{$data->price}}</td>
+            <td>{{$data->user_id}}</td>
+            <td>{{$data->account_id}}</td>
+            <td>{{$data->total_sales}}</td>
+            <td>{{$data->total_profit}}</td>
+            <td>{{$data->total_loss}}</td>
+            <td>${{$data->today_card_charge}}</td>
             <td>
                 
-                <form onSubmit="return confirm('Are you sure to Delete?')" method="post" action="{{ route('service.destroy',$data->id) }}">
+                <form onSubmit="return confirm('Are you sure to Delete?')" method="post" action="{{ route('client-progress.destroy',$data->id) }}">
 
-                    <a type="button" href="/service/{{$data->id}}/edit" class="btn btn-primary m-1">Edit</a>
+                    <a type="button" href="/client-progress/{{$data->id}}/edit" class="btn btn-primary m-1">Edit</a>
 
                     @csrf
                     @method('DELETE')
