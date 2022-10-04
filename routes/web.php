@@ -40,5 +40,17 @@ Route::resource('/client-progress', '\App\Http\Controllers\ClientProgressControl
 ///////////////////
 Route::get('/buy-services', [App\Http\Controllers\ClientController::class, 'services']); 
 
+Route::resource('/client-account', '\App\Http\Controllers\ClientAccountController');
 
 
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
