@@ -13,6 +13,13 @@ class ClientAccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+
+        $this->middleware('auth');
+        
+    }
+
     public function index()
     {
         $accounts = ClientAccount::where('user_id', Auth::user()->id);
