@@ -16,12 +16,19 @@
     @endif
 
 <div class="table-responsive mt-2">
-    <table class="table">
+    <table class="table" id="mydataTable">
+        <thead>
         <tr>
             <th>ID</th>
             <th>Account Name</th>
             <th>Action</th>
         </tr>
+
+        </thead>
+        <tbody>
+
+        
+        
         @foreach($accounts as $data)
         <tr>
             <td>{{$loop->iteration}}</td>
@@ -39,6 +46,7 @@
             </td>
         </tr>
         @endforeach
+        </tbody>
     </table>
 </div>
 

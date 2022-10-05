@@ -6,7 +6,7 @@
 <div class="container-fluid">
 
 <!-- Page Heading -->
-<h1 class="h3 mb-4 text-gray-800">Add Account</h1>
+<h1 class="h3 mb-4 text-gray-800">Edit Account</h1>
 
     @if(session()->has('message'))
         <div class="alert alert-success">
@@ -16,13 +16,14 @@
     @endif
 
 <div class="">
-    <form method="POST" action="/client-account" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('client-account.update',$clientAccount->id) }}" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
 
         <div class="">
             Account Name
-            <input name="account_name" type="text" placeholder="Enter Service Name" class="form-control">
-            <input name="user_id" type="hidden" placeholder="Enter Service Name" value="{{Auth::user()->id}}" class="form-control">
+            <input name="account_name" type="text" placeholder="Enter Service Name" value="{{$clientAccount->account_name}}" class="form-control">
+            
         </div>
 
        

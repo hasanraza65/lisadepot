@@ -51,6 +51,25 @@
         </div>
     </div>
 </li>
+@if (request()->is('client-account') || Request::is('client-account/*') )
+<li class="nav-item active">
+@else   
+<li class="nav-item">
+@endif     
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#accounts"
+        aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-fw fa-user"></i>
+        <span>Accounts</span>
+    </a>
+    <div id="accounts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/client-account">All Accounts</a>
+            <a class="collapse-item" href="/client-account/create">Add Account</a>
+            <a class="collapse-item" href="/client-account">My Account</a>
+            
+        </div>
+    </div>
+</li>
 
 <!-- Nav Item - Tables -->
 <li class="nav-item">

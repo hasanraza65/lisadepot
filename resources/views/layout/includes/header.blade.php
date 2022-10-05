@@ -19,6 +19,9 @@
 
     <!-- Custom styles for this template-->
     <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"></script>
+    
 
     <link href="/assets/css/custom.css" rel="stylesheet">
 

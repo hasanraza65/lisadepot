@@ -22,7 +22,7 @@ class ClientAccountController extends Controller
 
     public function index()
     {
-        $accounts = ClientAccount::where('user_id', Auth::user()->id);
+        $accounts = ClientAccount::where('user_id', Auth::user()->id)->get();
 
         return view('client.account.index',compact(['accounts']));
     }
@@ -70,7 +70,9 @@ class ClientAccountController extends Controller
      */
     public function edit(ClientAccount $clientAccount)
     {
-        //
+        
+
+        return view('client.account.edit',compact(['clientAccount']));
     }
 
     /**
@@ -82,7 +84,10 @@ class ClientAccountController extends Controller
      */
     public function update(Request $request, ClientAccount $clientAccount)
     {
-        //
+        $clientAccount->update($request->except(['_token']));
+        
+        $message = "Account Updated successfully";
+        return back()->withMessage($message);
     }
 
     /**
@@ -93,6 +98,8 @@ class ClientAccountController extends Controller
      */
     public function destroy(ClientAccount $clientAccount)
     {
-        //
+        $clientAccount->delete();
+        $message = "Account Deleted successfully";
+        return back()->withMessage($message);
     }
 }
