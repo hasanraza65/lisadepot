@@ -21,10 +21,27 @@ class ClientAccountController extends Controller
     }
 
     public function index()
-    {
+    {    if(Auth::user()->user_role==1){
+        $accounts = ClientAccount::all();
+
+
+        }else{
         $accounts = ClientAccount::where('user_id', Auth::user()->id)->get();
 
+
+        }
+
         return view('client.account.index',compact(['accounts']));
+    }
+    public function ClientAccounts()
+    {  
+        $id=$_GET['id'];
+        $accounts = ClientAccount::where('user_id',$id)->get();
+
+
+        
+
+        return $accounts;
     }
 
     /**

@@ -44,10 +44,13 @@
     </a>
     <div id="services" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
+        @if(Auth::user()->user_role==1)
             <a class="collapse-item" href="/service">All Services</a>
             <a class="collapse-item" href="/service/create">Add Service</a>
+            @else
             <a class="collapse-item" href="/buy-service">Buy New Service</a>
             <a class="collapse-item" href="/my-services">My Services</a>
+            @endif
         </div>
     </div>
 </li>
@@ -63,10 +66,13 @@
     </a>
     <div id="accounts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
+           
+            @if(Auth::user()->user_role==1)
             <a class="collapse-item" href="/client-account">All Accounts</a>
             <a class="collapse-item" href="/client-account/create">Add Account</a>
+            @else
             <a class="collapse-item" href="/client-account">My Account</a>
-            
+            @endif
         </div>
     </div>
 </li>
@@ -77,12 +83,30 @@
         <i class="fas fa-fw fa-table"></i>
         <span>My Package</span></a>
 </li>
-
+@if (request()->is('client-progress') || Request::is('client-progress/*') )
+<li class="nav-item active">
+@else   
 <li class="nav-item">
-    <a class="nav-link" href="/client-progress">
+@endif     
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#client-progress"
+        aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-table"></i>
-        <span>Client Progresses</span></a>
+        <span>Progress</span>
+    </a>
+    <div id="client-progress" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+           
+            @if(Auth::user()->user_role==1)
+            <a class="collapse-item" href="/client-progress">All Progresses</a>
+            <a class="collapse-item" href="/client-progress/create">Add progress</a>
+            @else
+            <a class="collapse-item" href="/client-progress">My Progress</a>
+            @endif
+        </div>
+    </div>
 </li>
+
+
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
