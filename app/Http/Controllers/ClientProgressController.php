@@ -9,19 +9,76 @@ use App\Models\ClientAccount;
 
 class ClientProgressController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        
+        $isfilter = $request->isfilter;
+        $userid = $request->user_id;
+        $accountid = $request->account_id;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
 
+        if($isfilter != "true"){
         $progress = ClientProgress::all();
+        }else{
+            if($userid == "" && $accountid == "" && $start_date == "" && $end_date == ""){
+            $progress = ClientProgress::all();
+            }elseif($userid != "" && $accountid == "" && $start_date == "" && $end_date == ""){
+            $progress = ClientProgress::where('user_id', $userid)
+            ->get();
+            }elseif($accountid != "" && $userid == "" && $start_date == "" && $end_date == ""){
+            $progress = ClientProgress::where('user_id', $userid)
+            ->where('account_id', $accountid)
+            ->get();
+            }elseif($start_date != "" && $userid == "" && $accountid == "" && $end_date == ""){
+            $progress = ClientProgress::whereDate('date', '>=', $start_date)
+            ->get();
+            }elseif($end_date != "" && $userid == "" && $accountid == "" && $start_date == ""){
+            $progress = ClientProgress::whereDate('date', '<=', $end_date)
+            ->get(); 
+            }elseif($userid != "" && $accountid != "" && $start_date == "" && $end_date == ""){
+            $progress = ClientProgress::where('user_id', $userid)
+            ->where('account_id', $accountid)
+            ->get();   
+            }elseif($userid != "" && $start_date != "" && $end_date == "" && $accountid == ""){
+            $progress = ClientProgress::where('user_id', $userid)
+            ->whereDate('date', '>=', $start_date)
+            ->get();   
+            }elseif($userid != "" && $end_date != "" && $accountid == "" && $start_date == ""){
+            $progress = ClientProgress::where('user_id', $userid)
+            ->whereDate('date', '<=', $end_date)
+            ->get();   
+            }elseif($userid != "" && $accountid != "" && $start_date != "" && $end_date == ""){
+            $progress = ClientProgress::where('user_id', $userid)
+            ->where('account_id', $accountid)
+            ->whereDate('date', '>=', $start_date)
+            ->get();   
+            }elseif($userid != "" && $accountid != "" && $end_date != "" && $start_date == ""){
+            $progress = ClientProgress::where('user_id', $userid)
+            ->where('account_id', $accountid)
+            ->whereDate('date', '<=', $end_date)
+            ->get();     
+            }elseif($userid != "" && $accountid != "" && $start_date != "" && $end_date != ""){
+            $progress = ClientProgress::where('user_id', $userid)
+            ->where('account_id', $accountid)
+            ->whereBetween('date', [$start_date,$end_date])
+            ->get();
+            }elseif($userid != "" && $start_date != "" && $end_date != "" && $accountid == ""){
+            $progress = ClientProgress::where('user_id', $userid)
+            ->whereBetween('date', [$start_date,$end_date])
+            ->get();
+            }
+        }
+
         $users = User::where('user_role',2)->get();
         $accounts = ClientAccount::all();
 
         return view('admin.progress.index',compact(['progress','users','accounts']));
     }
-    public function filterProgress(){
-        $user_id=$_POST['user_id'];
-        $account_id=$_POST['account_id'];
-        $start_date=$_POST['start_date'];
-        $end_date=$_POST['end_date'];
+    public function filterProgress(Request $request){
+        $user_id=$request->user_id();
+        //$account_id=$_POST['account_id'];
+        //$start_date=$_POST['start_date'];
+        //$end_date=$_POST['end_date'];
 
         $progress = ClientProgress::where('user_id',$user_id)
                                      ->where('user_id',$user_id)
@@ -29,9 +86,12 @@ class ClientProgressController extends Controller
                                      ->orWhere('date','>',$start_date)
                                      ->orWhere('date','<',$end_date)
                                      ->get();
+
         $users = User::where('user_role',2)->get();
 
         $accounts = ClientAccount::all();
+
+        dd($progress);
 
         return view('admin.progress.index',compact(['progress','users','accounts']));
     }

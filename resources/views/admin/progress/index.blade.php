@@ -4,38 +4,56 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-                                 <form action="/filter-progress" method="POST" class="form m-4">
-                                 @csrf
+                                 <form action="/client-progress" method="GET" class="form m-4">
+                                 
                                     <div class="row">
                                         <div class="col-3">
                                              <label for="">Choose Client</label>
                                                  <select class="form-control" name="user_id" onchange="getClientAccount(this.value)">
-                                                      <option>Choose One...</option>
-                                                          @foreach($users as $userss)
-                                                              <option value="{{$userss->id}}">{{$userss->email}}</option>
-                                                          @endforeach
+                                                      
+                                                            <option value="" selected>Choose One</option>
+                                                            @foreach($users as $userss)
+                                                        
+                                                            @if(isset($_GET['user_id']) && $_GET['user_id'] == $userss->id)
+                                                            <option value="{{$userss->id}}" selected>{{$userss->email}}</option>
+                                                            @else
+                                                            <option value="{{$userss->id}}">{{$userss->email}}</option> 
+                                                            @endif
+                                                            @endforeach
                                                  </select>
                                         </div>
                                         <div class="col-3">
                                              <label for="">Choose Account</label>
                                                  <select class="form-control" name="account_id" id="account_id">
-                                                         @foreach($accounts as $account)
-                                                              <option value="{{$account->id}}">{{$account->account_name}}</option>
-                                                          @endforeach
+                                                            <option value="" selected>Choose One</option>
+                                                            @foreach($accounts as $account)
+                                                            @if(isset($_GET['account_id']) && $_GET['account_id'] == $account->id)
+                                                            <option value="{{$account->id}}" selected>{{$account->account_name}}</option>
+                                                            @else
+                                                            <option value="{{$account->id}}">{{$account->account_name}}</option>
+                                                            @endif
+                                                            @endforeach
                                                  </select>
                                         </div>
                                         <div class="col-2">
-                                              <label for="">start Date</label>
+                                             <label for="">Start Date</label>
+                                             @if(isset($_GET['start_date']))
+                                             <input value="{{$_GET['start_date']}}" type="date" class="form-control" name="start_date" id="">
+                                             @else 
                                              <input type="date" class="form-control" name="start_date" id="">
-                                                 
+                                             @endif
                                         </div>
                                         <div class="col-2">
                                              <label for="">End Date</label>
+                                             @if(isset($_GET['end_date']))
+                                             <input value="{{$_GET['end_date']}}" type="date" class="form-control" name="end_date" id="">
+                                             @else 
                                              <input type="date" class="form-control" name="end_date" id="">
-                                                
+                                             @endif
                                         </div>
                                         <div class="col-2">
                                             <br>
+                                            <input type="hidden" name="isfilter" value="true">
                                              <input type="submit" class="form-control btn btn-primary mt-2" value="Search"  name="search_progress" id="">
                                                 
                                         </div>
@@ -99,7 +117,7 @@
 <script>
     function getClientAccount(id){
         $('#account_id').html('');
-        var options = '<option>Select Account</option>';
+        var options = '<option value="">Select Account</option>';
     $('#account_id').append(options);
     $.ajax({
     type : 'GET',
