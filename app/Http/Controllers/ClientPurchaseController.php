@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClientPurchase;
+use App\Models\ClientAccount;
+use App\Models\Service;
 use Illuminate\Http\Request;
+use Auth;
 
 class ClientPurchaseController extends Controller
 {
@@ -24,7 +27,8 @@ class ClientPurchaseController extends Controller
      */
     public function create()
     {
-        return view('client.purchases.add');
+        $accounts = ClientAccount::where('user_id',Auth::user()->id)->get();
+        return view('client.purchases.add',compact(['accounts']));
     }
 
     /**
@@ -35,7 +39,14 @@ class ClientPurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->merge([
+            'user_id'=> Auth::user()->id,
+        ]);
+
+        $clientpurchase = ClientPurchase::create($request->except(['_token']));
+
+        $message = "Purchase Done successfully";
+        return back()->withMessage($message);
     }
 
     /**
@@ -81,5 +92,13 @@ class ClientPurchaseController extends Controller
     public function destroy(ClientPurchase $clientPurchase)
     {
         //
+    }
+
+    public function viewHireVA(){
+
+        $services = Service::all();
+
+        return view('client.purchases.hireva', compact(['services']));
+
     }
 }

@@ -46,6 +46,7 @@ Route::POST('/filter-progress',[\App\Http\Controllers\ClientProgressController::
 
 //Purchase service route 
 Route::resource('purchase-service', '\App\Http\Controllers\ClientPurchaseController');
+Route::GET('/hire-va',[\App\Http\Controllers\ClientPurchaseController::class, 'viewHireVA']);
 
 
 

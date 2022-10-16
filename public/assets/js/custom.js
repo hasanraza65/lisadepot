@@ -42,3 +42,18 @@ function setPrice(val){
         $('#package_price').val(14);
     }
 }
+
+function setPricePerHour(){
+
+    var selectedhours = $('#hours').val();
+    var price = 0;
+
+    if(selectedhours <= 4){
+        price = 14;
+    }else{
+        price = 10;
+    }
+
+    $('#package_price_label').html("Price $ (Per Hour)");
+    $('#package_price').val(price);
+}
