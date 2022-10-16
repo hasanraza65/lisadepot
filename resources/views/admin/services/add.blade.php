@@ -30,11 +30,6 @@
         </div>
 
         <div class="mt-4">
-            Price
-            <input name="price" placeholder="25" type="number" class="form-control">
-        </div>
-
-        <div class="mt-4">
             <input type="submit" class="btn btn-primary">
         </div>
 

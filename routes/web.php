@@ -44,6 +44,9 @@ Route::resource('/client-account', '\App\Http\Controllers\ClientAccountControlle
 Route::GET('/clientaccounts',[\App\Http\Controllers\ClientAccountController::class, 'ClientAccounts']);
 Route::POST('/filter-progress',[\App\Http\Controllers\ClientProgressController::class, 'filterProgress']);
 
+//Purchase service route 
+Route::resource('purchase-service', '\App\Http\Controllers\ClientPurchaseController');
+
 
 
 

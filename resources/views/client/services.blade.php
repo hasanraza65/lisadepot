@@ -16,14 +16,14 @@
         <div class="card" style="width: 18rem;">
             
             @if($data->banner != null && $data->banner != "")
-            <img src="/storage/{{$data->banner}}" class="card-img-top" alt="...">
+            <img style="max-width: 280px; max-height: 250px; min-width:280px; min-height: 250px;" src="/storage/{{$data->banner}}" class="card-img-top" alt="...">
             @else 
             <img src="/assets/img/amazonservice.png" class="card-img-top" alt="...">
             @endif
             <div class="card-body">
                 <h5 class="card-title">{{$data->name}}</h5>
                 
-                <a href="#" class="btn btn-primary">Buy Now</a>
+                <a href="/purchase-service/create?service={{$data->id}}" class="btn btn-primary">Buy Now</a>
             </div>
         </div>
     </div>
