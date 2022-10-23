@@ -32,7 +32,7 @@
             <select class="form-control" name="service_id" required>
                 <option value="" selected>Choose One...</option>
                 @foreach($accounts as $accountss)
-                <option value="{{$accountss->id}}">{{$accountss->name}}</option>
+                <option value="{{$accountss->id}}">{{$accountss->account_name}}</option>
                 @endforeach
             </select>
         </div>

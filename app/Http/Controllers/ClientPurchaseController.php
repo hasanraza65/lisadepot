@@ -17,7 +17,19 @@ class ClientPurchaseController extends Controller
      */
     public function index()
     {
-        //
+        if(Auth::user()->user_role == 1){
+        
+        $clientpurchase = ClientPurchase::all();
+
+        return view('admin.purchases.index',compact(['clientpurchase']));
+
+        }else{
+
+            $clientpurchase = ClientPurchase::where('user_id', Auth::user()->id)->get();
+
+        return view('client.purchases.index',compact(['clientpurchase']));
+
+        }
     }
 
     /**

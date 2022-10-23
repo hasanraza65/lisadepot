@@ -106,6 +106,56 @@
     </div>
 </li>
 
+@if (request()->is('purchase-service') || Request::is('purchase-service/*') )
+<li class="nav-item active">
+@else   
+<li class="nav-item">
+@endif     
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#purchaseservice"
+        aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-fw fa-user"></i>
+        <span>Purchases</span>
+    </a>
+    <div id="purchaseservice" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+           
+            @if(Auth::user()->user_role==1)
+            <a class="collapse-item" href="/purchase-service">All Purchases</a>
+            
+            @else
+            <a class="collapse-item" href="/purchase-service">My Purchases</a>
+            <a class="collapse-item" href="/purchase-service/create">Make New Purchase</a>
+            @endif
+            
+        </div>
+    </div>
+</li>
+
+@if (request()->is('hire-va') || Request::is('hire-va/*') )
+<li class="nav-item active">
+@else   
+<li class="nav-item">
+@endif     
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#hireva"
+        aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-fw fa-user"></i>
+        <span>Hired VA</span>
+    </a>
+    <div id="hireva" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+           
+            @if(Auth::user()->user_role==1)
+            <a class="collapse-item" href="/all-hire-va">All Hired VA</a>
+            
+            @else
+            <a class="collapse-item" href="/all-hire-va">My Hired VA</a>
+            <a class="collapse-item" href="/hire-va">Hire New VA</a>
+            @endif
+            
+        </div>
+    </div>
+</li>
+
 
 
 <!-- Divider -->
