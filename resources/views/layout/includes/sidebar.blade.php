@@ -48,7 +48,7 @@
             <a class="collapse-item" href="/service">All Services</a>
             <a class="collapse-item" href="/service/create">Add Service</a>
             @else
-            <a class="collapse-item" href="/buy-service">Buy New Service</a>
+            <a class="collapse-item" href="/buy-services">Buy New Service</a>
             <a class="collapse-item" href="/my-services">My Services</a>
             @endif
         </div>
@@ -72,17 +72,19 @@
             <a class="collapse-item" href="/client-account/create">Add Account</a>
             @else
             <a class="collapse-item" href="/client-account">My Account</a>
+            <a class="collapse-item" href="/client-account/create">Add Account</a>
             @endif
         </div>
     </div>
 </li>
 
 <!-- Nav Item - Tables -->
+<!---
 <li class="nav-item">
     <a class="nav-link" href="/my-package">
         <i class="fas fa-fw fa-table"></i>
         <span>My Package</span></a>
-</li>
+</li> --->
 @if (request()->is('client-progress') || Request::is('client-progress/*') )
 <li class="nav-item active">
 @else   
@@ -145,10 +147,10 @@
         <div class="bg-white py-2 collapse-inner rounded">
            
             @if(Auth::user()->user_role==1)
-            <a class="collapse-item" href="/all-hire-va">All Hired VA</a>
+            <a class="collapse-item" href="/all-hired-va">All Hired VA</a>
             
             @else
-            <a class="collapse-item" href="/all-hire-va">My Hired VA</a>
+            <a class="collapse-item" href="/all-hired-va">My Hired VA</a>
             <a class="collapse-item" href="/hire-va">Hire New VA</a>
             @endif
             

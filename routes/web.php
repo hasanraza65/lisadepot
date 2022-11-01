@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('client.index');
-});
+
 
 Route::get('/client-progress', function () {
     return view('admin.progress.index');
@@ -47,8 +45,27 @@ Route::POST('/filter-progress',[\App\Http\Controllers\ClientProgressController::
 //Purchase service route 
 Route::resource('purchase-service', '\App\Http\Controllers\ClientPurchaseController');
 Route::GET('/hire-va',[\App\Http\Controllers\ClientPurchaseController::class, 'viewHireVA']);
+Route::GET('/all-hired-va',[\App\Http\Controllers\ClientPurchaseController::class, 'allHiredVA']);
+
+///////////////////
+/* STRIPE ROUTES */
+///////////////////
+
+Route::get('stripe/{purchaseid}', [App\Http\Controllers\StripeController::class, 'stripe']);
+Route::post('stripe', [App\Http\Controllers\StripeController::class, 'stripePost'])->name('stripe.post');
 
 
+///////////////////
+/* Auto Charge ROUTES */
+///////////////////
+Route::get('hour_based_charge', [App\Http\Controllers\AutoChargeController::class, 'perHourCharge']);
+Route::get('month_based_charge', [App\Http\Controllers\AutoChargeController::class, 'perMonthCharge']);
+
+
+///////////////////
+/* Transactions ROUTES */
+///////////////////
+Route::resource('/transactions', '\App\Http\Controllers\TransactionController');
 
 
 Route::middleware([
@@ -59,4 +76,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/', function () {
+        return view('client.index');
+    });
 });

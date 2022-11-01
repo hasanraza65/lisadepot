@@ -15,11 +15,20 @@ class ClientPurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+
+        $this->middleware('auth');
+        
+    }
+
+
     public function index()
     {
         if(Auth::user()->user_role == 1){
         
-        $clientpurchase = ClientPurchase::all();
+        $clientpurchase = ClientPurchase::join('users', 'users.id', 'client_purchases.user_id')
+        ->get();
 
         return view('admin.purchases.index',compact(['clientpurchase']));
 
@@ -55,10 +64,11 @@ class ClientPurchaseController extends Controller
             'user_id'=> Auth::user()->id,
         ]);
 
+
         $clientpurchase = ClientPurchase::create($request->except(['_token']));
 
-        $message = "Purchase Done successfully";
-        return back()->withMessage($message);
+        $message = "Please Enter Payment Details To Complete Your Purchase.";
+        return redirect('/stripe/'.$clientpurchase->id)->withMessage($message);
     }
 
     /**
@@ -109,8 +119,33 @@ class ClientPurchaseController extends Controller
     public function viewHireVA(){
 
         $services = Service::all();
+        $accounts = ClientAccount::where('user_id', Auth::user()->id)->get();
 
-        return view('client.purchases.hireva', compact(['services']));
+        return view('client.purchases.hireva', compact(['services', 'accounts']));
+
+    }
+
+    public function allHiredVA(){
+
+        if(Auth::user()->user_role==1){
+        $hiredva = ClientPurchase::where('plan', 'Hire a VA')
+        ->join('users', 'users.id', 'client_purchases.user_id')
+        ->join('services', 'services.id', 'client_purchases.service_id')
+        ->join('client_accounts', 'client_accounts.id', 'client_purchases.account_id')
+        ->select('client_accounts.*', 'users.*', 'services.*', 'client_purchases.*', 'services.name as service_name', 'client_purchases.id as id')
+        ->get();
+        }else{
+
+        $hiredva = ClientPurchase::where('plan', 'Hire a VA')
+        ->join('services', 'services.id', 'client_purchases.service_id')
+        ->join('client_accounts', 'client_accounts.id', 'client_purchases.account_id')
+        ->where('client_purchases.user_id', Auth::user()->id)
+        ->select('client_accounts.*', 'services.*', 'client_purchases.*', 'services.name as service_name', 'client_purchases.id as id')
+        ->get();   
+
+        }
+
+        return view('client.purchases.all_hiredva', compact(['hiredva']));
 
     }
 }

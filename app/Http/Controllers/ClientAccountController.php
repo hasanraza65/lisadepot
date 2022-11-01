@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClientAccount;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -39,8 +40,6 @@ class ClientAccountController extends Controller
         $accounts = ClientAccount::where('user_id',$id)->get();
 
 
-        
-
         return $accounts;
     }
 
@@ -51,7 +50,10 @@ class ClientAccountController extends Controller
      */
     public function create()
     {
-        return view('client.account.add');
+
+        $clients = User::where('user_role','!=',1)->get();
+
+        return view('client.account.add', compact(['clients']));
     }
 
     /**

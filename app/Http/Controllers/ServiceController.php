@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\ClientPurchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Auth;
+
 
 class ServiceController extends Controller
 {
@@ -20,8 +23,16 @@ class ServiceController extends Controller
 
     public function index()
     {
-        $services = Service::all();
-        return view('admin.services.index',compact(['services']));
+        if(Auth::user()->user_role == 1){
+            $services = Service::all();
+            return view('admin.services.index',compact(['services']));
+        }else{
+            $services = ClientPurchase::join('services', 'services.id', 'client_purchases.service_id')
+            ->where('user_id', Auth::user()->id)
+            ->select('services.*', 'client_purchases.*', 'client_purchases.id as id')
+            ->get();
+            return view('client.services.index',compact(['services']));
+        }
     }
 
     /**

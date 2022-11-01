@@ -7,6 +7,7 @@
                                  <form action="/client-progress" method="GET" class="form m-4">
                                  
                                     <div class="row">
+                                        @if(Auth::user()->user_role==1)
                                         <div class="col-3">
                                              <label for="">Choose Client</label>
                                                  <select class="form-control" name="user_id" onchange="getClientAccount(this.value)">
@@ -22,6 +23,7 @@
                                                             @endforeach
                                                  </select>
                                         </div>
+                                        @endif
                                         <div class="col-3">
                                              <label for="">Choose Account</label>
                                                  <select class="form-control" name="account_id" id="account_id">
@@ -81,7 +83,9 @@
             <th>Total Loss</th>
             <th>Today Card Charge</th>
             <th>Date</th>
+            @if(Auth::user()->user_role == 1)
             <th>Action</th>
+            @endif
         </tr>
         @foreach($progress as $data)
         <tr>
@@ -93,6 +97,8 @@
             <td>{{$data->total_loss}}</td>
             <td>${{$data->today_card_charge}}</td>
             <td>{{$data->date}}</td>
+
+            @if(Auth::user()->user_role == 1)
             <td>
                 
                 <form onSubmit="return confirm('Are you sure to Delete?')" method="post" action="{{ route('client-progress.destroy',$data->id) }}">
@@ -104,6 +110,7 @@
                     <input type="submit" value="Delete" class="btn btn-danger m-1">
                 </form>
             </td>
+            @endif
         </tr>
         @endforeach
     </table>

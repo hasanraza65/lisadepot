@@ -16,48 +16,34 @@
     @endif
 
 <div class="">
-    <form method="POST" action="" enctype="multipart/form-data">
+    @foreach($clientprogress as $data)
+    <form method="POST" action="/client-progress/{{$data->id}}" enctype="multipart/form-data">
          @csrf
         @method('PUT')
 
-        <div class="">
-            
-            <input type="text"  name="user_id" value=""  class="form-control">
-               
-           
-        </div>
-
-        <div class="mt-4">
-            Choose Client's Account
-            <select name="account_id" id="account_id" class="form-control">
-                <option>Choose One...</option>
-                <option value="1">Account 1</option>
-            </select>
-        </div>
-
         <div class="mt-4">
             Total Sales
-            <input name="total_sales" type="text" value="{{$clientprogress->total_sales}}" placeholder="Enter Total Sales" class="form-control">
+            <input value="{{$data->total_sales}}" name="total_sales" type="text" placeholder="Enter Total Sales" class="form-control">
         </div>
 
         <div class="mt-4">
             Total Profit
-            <input name="total_profit" type="float" placeholder="Enter Total Profit" class="form-control">
+            <input value="{{$data->total_profit}}" name="total_profit" type="float" placeholder="Enter Total Profit" class="form-control">
         </div>
 
         <div class="mt-4">
             Total Loss
-            <input name="total_loss" type="float" placeholder="Enter Total Loss" class="form-control">
+            <input value="{{$data->total_loss}}" name="total_loss" type="float" placeholder="Enter Total Loss" class="form-control">
         </div>
 
         <div class="mt-4">
             Today Card Charge
-            <input name="today_card_charge" type="float" placeholder="Enter Today Card Charge" class="form-control">
+            <input value="{{$data->today_card_charge}}" name="today_card_charge" type="float" placeholder="Enter Today Card Charge" class="form-control">
         </div>
 
         <div class="mt-4">
             Date
-            <input name="date" type="date" placeholder="Choose Date" class="form-control">
+            <input value="{{$data->date}}" name="date" type="date" placeholder="Choose Date" class="form-control">
         </div>
 
         <div class="mt-4">
@@ -65,6 +51,7 @@
         </div>
 
     </form>
+    @endforeach
 </div>
 
 

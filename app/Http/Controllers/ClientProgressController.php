@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\ClientProgress;
 use App\Models\User;
 use App\Models\ClientAccount;
+use Auth;
 
 class ClientProgressController extends Controller
 {
+    public function __construct(){
+
+        $this->middleware('auth');
+        
+    }
+
     public function index(Request $request){
         
         $isfilter = $request->isfilter;
@@ -18,59 +25,239 @@ class ClientProgressController extends Controller
         $end_date = $request->end_date;
 
         if($isfilter != "true"){
-        $progress = ClientProgress::all();
+
+                if(Auth::user()->user_role == 1){    
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+
         }else{
             if($userid == "" && $accountid == "" && $start_date == "" && $end_date == ""){
-            $progress = ClientProgress::all();
+
+                if(Auth::user()->user_role == 1){    
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+            
             }elseif($userid != "" && $accountid == "" && $start_date == "" && $end_date == ""){
-            $progress = ClientProgress::where('user_id', $userid)
-            ->get();
+                
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', $userid)
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+
             }elseif($accountid != "" && $userid == "" && $start_date == "" && $end_date == ""){
-            $progress = ClientProgress::where('user_id', $userid)
-            ->where('account_id', $accountid)
-            ->get();
+                
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', $userid)
+                    ->where('account_id', $accountid)
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', Auth::user()->id)
+                    ->where('account_id', $accountid)
+                    ->get();
+                }
+
             }elseif($start_date != "" && $userid == "" && $accountid == "" && $end_date == ""){
-            $progress = ClientProgress::whereDate('date', '>=', $start_date)
-            ->get();
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->whereDate('date', '>=', $start_date)
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->whereDate('date', '>=', $start_date)
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+
             }elseif($end_date != "" && $userid == "" && $accountid == "" && $start_date == ""){
-            $progress = ClientProgress::whereDate('date', '<=', $end_date)
-            ->get(); 
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->whereDate('date', '<=', $end_date)
+                    ->get(); 
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->whereDate('date', '<=', $end_date)
+                    ->where('user_id', Auth::user()->id)
+                    ->get(); 
+                }
+
             }elseif($userid != "" && $accountid != "" && $start_date == "" && $end_date == ""){
-            $progress = ClientProgress::where('user_id', $userid)
-            ->where('account_id', $accountid)
-            ->get();   
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', $userid)
+                    ->where('account_id', $accountid)
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+
+                    ->where('account_id', $accountid)
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+
+            }elseif($userid == "" && $accountid != "" && $start_date != "" && $end_date == ""){
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->whereDate('date', '>=', $start_date)
+                    ->where('account_id', $accountid)
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+
+                    ->where('account_id', $accountid)
+                    ->whereDate('date', '>=', $start_date)
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+
+            }elseif($userid == "" && $accountid != "" && $start_date != "" && $end_date != ""){
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->whereDate('date', '>=', $start_date)
+                    ->whereDate('date', '<=', $end_date)
+                    ->where('account_id', $accountid)
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+
+                    ->where('account_id', $accountid)
+                    ->whereDate('date', '>=', $start_date)
+                    ->whereDate('date', '<=', $end_date)
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+
             }elseif($userid != "" && $start_date != "" && $end_date == "" && $accountid == ""){
-            $progress = ClientProgress::where('user_id', $userid)
-            ->whereDate('date', '>=', $start_date)
-            ->get();   
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', $userid)
+                    ->whereDate('date', '>=', $start_date)
+                    
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+   
+                    ->whereDate('date', '>=', $start_date)
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+
             }elseif($userid != "" && $end_date != "" && $accountid == "" && $start_date == ""){
-            $progress = ClientProgress::where('user_id', $userid)
-            ->whereDate('date', '<=', $end_date)
-            ->get();   
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', $userid)
+                    ->whereDate('date', '<=', $end_date)
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+
+                    ->whereDate('date', '<=', $end_date)
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+
             }elseif($userid != "" && $accountid != "" && $start_date != "" && $end_date == ""){
-            $progress = ClientProgress::where('user_id', $userid)
-            ->where('account_id', $accountid)
-            ->whereDate('date', '>=', $start_date)
-            ->get();   
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', $userid)
+                    ->where('account_id', $accountid)
+                    ->whereDate('date', '>=', $start_date)
+                    ->get();   
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+
+                    ->where('account_id', $accountid)
+                    ->whereDate('date', '>=', $start_date)
+                    ->where('user_id', Auth::user()->id)
+                    ->get(); 
+                }
+
             }elseif($userid != "" && $accountid != "" && $end_date != "" && $start_date == ""){
-            $progress = ClientProgress::where('user_id', $userid)
-            ->where('account_id', $accountid)
-            ->whereDate('date', '<=', $end_date)
-            ->get();     
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', $userid)
+                    ->where('account_id', $accountid)
+                    ->whereDate('date', '<=', $end_date)
+                    ->get();  
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+
+                    ->where('account_id', $accountid)
+                    ->whereDate('date', '<=', $end_date)
+                    ->where('user_id', Auth::user()->id)
+                    ->get(); 
+                }   
+
             }elseif($userid != "" && $accountid != "" && $start_date != "" && $end_date != ""){
-            $progress = ClientProgress::where('user_id', $userid)
-            ->where('account_id', $accountid)
-            ->whereBetween('date', [$start_date,$end_date])
-            ->get();
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', $userid)
+                    ->where('account_id', $accountid)
+                    ->whereBetween('date', [$start_date,$end_date])
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+
+                    ->where('account_id', $accountid)
+                    ->whereBetween('date', [$start_date,$end_date])
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+
             }elseif($userid != "" && $start_date != "" && $end_date != "" && $accountid == ""){
-            $progress = ClientProgress::where('user_id', $userid)
-            ->whereBetween('date', [$start_date,$end_date])
-            ->get();
+
+                if(Auth::user()->user_role == 1){
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->where('user_id', $userid)
+                    ->whereBetween('date', [$start_date,$end_date])
+                    ->get();
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->whereBetween('date', [$start_date,$end_date])
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                }
+
             }
         }
 
         $users = User::where('user_role',2)->get();
+
+        if(Auth::user()->user_role == 1){
+
         $accounts = ClientAccount::all();
+
+        }else{
+
+        $accounts = ClientAccount::where('user_id', Auth::user()->id)->get();    
+
+        }
 
         return view('admin.progress.index',compact(['progress','users','accounts']));
     }
@@ -111,15 +298,17 @@ class ClientProgressController extends Controller
         $message = "Client Progress created successfully";
         return back()->withMessage($message);
     }
-    public function edit(ClientProgress $clientprogress)
+    public function edit($id)
     {
         
-        $clientprogress = ClientProgress::find($clientprogress);
+        $clientprogress = ClientProgress::where('id',$id)->get();
 
         return view('admin.progress.edit',compact(['clientprogress']));
     }
-    public function update(Request $request, ClientProgress $clientprogress)
+    public function update(Request $request, $id)
     {
+        $clientprogress = ClientProgress::find($id);
+
         $clientprogress->update($request->except(['_token']));
         
         $message = "Progress Updated successfully";

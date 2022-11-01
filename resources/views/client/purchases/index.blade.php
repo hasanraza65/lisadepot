@@ -20,29 +20,27 @@
         <tr>
             <th>ID</th>
             <th>Plan Type</th>
-            <th>Buyer</th>
-            <th>Price</th>
-            <th>Payment Status</th>
+            <th>Paid Price</th>
+            <th>Status</th>
             <th>Date</th>
-            <th>Action</th>
+            <th>Pay Now</th>
 
         </tr>
         @foreach($clientpurchase as $data)
         <tr>
             <td>{{$loop->iteration}}</td>
             <td>{{$data->plan}}</td>
-            <td>{{$data->email}}</td>
             <td>£{{$data->package_price}}</td>
             <td>{{$data->payment_status}}</td>
             <td>{{$data->created_at}}</td>
             <td>
-                <form onSubmit="return confirm('Are you sure to Delete?')" method="post" action="{{ route('purchase-service.destroy',$data->id) }}">
-
-                    @csrf
-                    @method('DELETE')
-                    <input type="submit" value="Delete" class="btn btn-danger m-1">
-                </form>
+                @if($data->payment_status != 'Paid')
+                <a href="/stripe/{{$data->id}}" class="btn btn-primary">Pay Now</a>
+                @else 
+                Already Paid
+                @endif
             </td>
+            
         </tr>
         @endforeach
     </table>
