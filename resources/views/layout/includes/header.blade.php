@@ -21,6 +21,8 @@
     <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
 
     <link href="/assets/css/custom.css" rel="stylesheet">

@@ -8,6 +8,7 @@ use Stripe;
 use Auth;
 use App\Models\User;
 use App\Models\ClientPurchase;
+use App\Models\Transaction;
     
 class StripeController extends Controller
 {
@@ -83,7 +84,13 @@ class StripeController extends Controller
 
             $purchase = ClientPurchase::find($purchaseid);
             $purchase->payment_status = "Paid";
+
+            if($purchase->package_2_type != "" && $purchase->package_2_type != "monthly"){
+
             $purchase->package_exp = $exp_date;
+
+            }
+
             $purchase->update();
 
             
@@ -94,5 +101,68 @@ class StripeController extends Controller
 
             return back()->withMessage('Payment Not Done');
         }
+    }
+
+    public function customChargeView(){
+
+        $users = User::where('user_role', 2)
+        ->whereNot('stripe_token','')
+        ->get();
+
+        return view('admin.chargecustomer.charge',compact(['users']));
+    }
+
+    public function chargeCustomer(Request $request){
+
+        $user = User::find($request->user_id);
+        $user_stripe_token = $user->stripe_token;
+        $totalcost = $request->total_cost;
+        $purchaseid = $request->purchase_id;
+
+        //return $request->user_id;
+
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $donepayment = Stripe\Charge::create ([
+            
+            "amount" => $totalcost * 100,
+            "currency" => "GBP",
+            "customer" => $user_stripe_token,
+            "description" => "Charge By Admin"
+    ]);
+
+    if($donepayment['status'] == 'succeeded'){
+
+        $today = date('Y-m-d');
+        $exp_date = date('Y-m-d', strtotime('+30 days'));
+
+
+        $clientpurchase = new Transaction();
+        $clientpurchase->user_id = $request->user_id;
+        $clientpurchase->purchase_id = $purchaseid;
+        $clientpurchase->card_last_four = $donepayment['payment_method_details']['card']->last4;
+        $clientpurchase->transaction_id = $donepayment['balance_transaction'];
+        $clientpurchase->charges = $totalcost;
+        $clientpurchase->save();
+
+        
+       
+    return back()->withMessage('Payment Done!');
+
+    }else{
+
+        return back()->withMessage('Payment Not Done');
+    }
+
+    }
+
+    function clientPurchase(Request $request){
+
+        $id =  $request->id;
+
+        $clientpurchase = ClientPurchase::where('user_id', $id)->get();
+
+        return $clientpurchase;
+
     }
 }

@@ -21,7 +21,7 @@
 
         <div class="">
             Choose Client
-            <select name="user_id" onchange="getClientAccount(this.value)" class="form-control">
+            <select name="user_id" id="user_id" onchange="getClientAccount(this.value)" class="form-control">
                 <option>Choose One...</option>
                 @foreach($users as $userss)
                 <option value="{{$userss->id}}">{{$userss->email}}</option>

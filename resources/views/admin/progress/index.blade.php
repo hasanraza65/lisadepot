@@ -93,9 +93,9 @@
             <td>{{$data->user_id}}</td>
             <td>{{$data->account_id}}</td>
             <td>{{$data->total_sales}}</td>
-            <td>{{$data->total_profit}}</td>
-            <td>{{$data->total_loss}}</td>
-            <td>${{$data->today_card_charge}}</td>
+            <td>£{{$data->total_profit}}</td>
+            <td>£{{$data->total_loss}}</td>
+            <td>£{{$data->today_card_charge}}</td>
             <td>{{$data->date}}</td>
 
             @if(Auth::user()->user_role == 1)
