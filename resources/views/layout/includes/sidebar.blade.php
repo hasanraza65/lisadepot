@@ -49,7 +49,7 @@
             <a class="collapse-item" href="/service/create">Add Service</a>
             @else
             <a class="collapse-item" href="/buy-services">Buy New Service</a>
-            <a class="collapse-item" href="/my-services">My Services</a>
+            <a class="collapse-item" href="/service">My Services</a>
             @endif
         </div>
     </div>
@@ -158,7 +158,17 @@
     </div>
 </li>
 
-
+@if(Auth::user()->user_role == 1)
+@if (request()->is('/chargecustomer'))
+<li class="nav-item active">
+@else 
+<li class="nav-item">
+@endif    
+    <a class="nav-link" href="/chargecustomer">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Charge Customer</span></a>
+</li>
+@endif
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
