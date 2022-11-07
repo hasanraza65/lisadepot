@@ -67,14 +67,35 @@
         </div>
 
         @foreach($data as $datas)
+        @if($datas->package_2_type == 'equity' || $datas->plan == 'Hire a VA')
+        
+        @php 
+            $msg = "You will be charged 1 usd for your debit/credit card verification.";
+            $pckgprice = 1;
 
-        <input type="hidden" name="totalcost" value="{{$datas->package_price}}">
+        @endphp    
+        
+        @else
+
+        @php 
+
+            $msg = "";
+            $pckgprice = $datas->package_price;
+
+        @endphp
+        
+        @endif
+
+        <input type="hidden" name="totalcost" value="{{$pckgprice}}">
         <input type="hidden" name="purchaseid" value="{{$datas->id}}">
+       
 
         @endforeach
 
         <div class="mt-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now (£{{$datas->package_price}})</button>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now (${{$pckgprice}})</button>
+        <br>
+        {{$msg}}
         </div>
 
 

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use App\Models\ClientAccount;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -27,10 +28,17 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        $clientaccount = new ClientAccount();
+        $clientaccount->user_id = $user->id;
+        $clientaccount->account_name = "Account One";
+        $clientaccount->save();
+
+        return $user;
     }
 }
