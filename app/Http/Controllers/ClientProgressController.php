@@ -28,10 +28,12 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){    
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
 
@@ -40,10 +42,12 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){    
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
             
@@ -51,11 +55,13 @@ class ClientProgressController extends Controller
                 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', $userid)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', $userid)
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
 
@@ -63,13 +69,15 @@ class ClientProgressController extends Controller
                 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', $userid)
-                    ->where('account_id', $accountid)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', $userid)
+                    ->where('client_progress.account_id', $accountid)
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', Auth::user()->id)
-                    ->where('account_id', $accountid)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', Auth::user()->id)
+                    ->where('client_progress.account_id', $accountid)
                     ->get();
                 }
 
@@ -77,12 +85,14 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->whereDate('date', '>=', $start_date)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereDate('client_progress.date', '>=', $start_date)
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->whereDate('date', '>=', $start_date)
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereDate('client_progress.date', '>=', $start_date)
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
 
@@ -90,12 +100,14 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->whereDate('date', '<=', $end_date)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereDate('client_progress.date', '<=', $end_date)
                     ->get(); 
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->whereDate('date', '<=', $end_date)
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereDate('client_progress.date', '<=', $end_date)
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get(); 
                 }
 
@@ -103,12 +115,14 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->whereDate('date', '<=', $end_date)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereDate('client_progress.date', '<=', $end_date)
                     ->get(); 
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->whereDate('date', '<=', $end_date)
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereDate('client_progress.date', '<=', $end_date)
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get(); 
                 }
 
@@ -116,14 +130,15 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', $userid)
-                    ->where('account_id', $accountid)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', $userid)
+                    ->where('client_progress.account_id', $accountid)
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-
-                    ->where('account_id', $accountid)
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.account_id', $accountid)
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
 
@@ -131,15 +146,16 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->whereDate('date', '>=', $start_date)
-                    ->where('account_id', $accountid)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereDate('client_progress.date', '>=', $start_date)
+                    ->where('client_progress.account_id', $accountid)
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-
-                    ->where('account_id', $accountid)
-                    ->whereDate('date', '>=', $start_date)
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.account_id', $accountid)
+                    ->whereDate('client_progress.date', '>=', $start_date)
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
 
@@ -147,17 +163,18 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->whereDate('date', '>=', $start_date)
-                    ->whereDate('date', '<=', $end_date)
-                    ->where('account_id', $accountid)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereDate('client_progress.date', '>=', $start_date)
+                    ->whereDate('client_progress.date', '<=', $end_date)
+                    ->where('client_progress.account_id', $accountid)
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-
-                    ->where('account_id', $accountid)
-                    ->whereDate('date', '>=', $start_date)
-                    ->whereDate('date', '<=', $end_date)
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.account_id', $accountid)
+                    ->whereDate('client_progress.date', '>=', $start_date)
+                    ->whereDate('client_progress.date', '<=', $end_date)
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
 
@@ -165,15 +182,16 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', $userid)
-                    ->whereDate('date', '>=', $start_date)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', $userid)
+                    ->whereDate('client_progress.date', '>=', $start_date)
                     
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-   
-                    ->whereDate('date', '>=', $start_date)
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereDate('client_progress.date', '>=', $start_date)
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
 
@@ -181,14 +199,15 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', $userid)
-                    ->whereDate('date', '<=', $end_date)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', $userid)
+                    ->whereDate('client_progress.date', '<=', $end_date)
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-
-                    ->whereDate('date', '<=', $end_date)
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereDate('client_progress.date', '<=', $end_date)
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
 
@@ -196,16 +215,17 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', $userid)
-                    ->where('account_id', $accountid)
-                    ->whereDate('date', '>=', $start_date)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', $userid)
+                    ->where('client_progress.account_id', $accountid)
+                    ->whereDate('client_progress.date', '>=', $start_date)
                     ->get();   
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-
-                    ->where('account_id', $accountid)
-                    ->whereDate('date', '>=', $start_date)
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.account_id', $accountid)
+                    ->whereDate('client_progress.date', '>=', $start_date)
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get(); 
                 }
 
@@ -213,16 +233,17 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', $userid)
-                    ->where('account_id', $accountid)
-                    ->whereDate('date', '<=', $end_date)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', $userid)
+                    ->where('client_progress.account_id', $accountid)
+                    ->whereDate('client_progress.date', '<=', $end_date)
                     ->get();  
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-
-                    ->where('account_id', $accountid)
-                    ->whereDate('date', '<=', $end_date)
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.account_id', $accountid)
+                    ->whereDate('client_progress.date', '<=', $end_date)
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get(); 
                 }   
 
@@ -230,16 +251,17 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){ 
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', $userid)
-                    ->where('account_id', $accountid)
-                    ->whereBetween('date', [$start_date,$end_date])
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', $userid)
+                    ->where('client_progress.account_id', $accountid)
+                    ->whereBetween('client_progress.date', [$start_date,$end_date])
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-
-                    ->where('account_id', $accountid)
-                    ->whereBetween('date', [$start_date,$end_date])
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.account_id', $accountid)
+                    ->whereBetween('client_progress.date', [$start_date,$end_date])
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
 
@@ -247,13 +269,15 @@ class ClientProgressController extends Controller
 
                 if(Auth::user()->user_role == 1){
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->where('user_id', $userid)
-                    ->whereBetween('date', [$start_date,$end_date])
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->where('client_progress.user_id', $userid)
+                    ->whereBetween('client_progress.date', [$start_date,$end_date])
                     ->get();
                 }else{
                     $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
-                    ->whereBetween('date', [$start_date,$end_date])
-                    ->where('user_id', Auth::user()->id)
+                    ->join('client_accounts','client_accounts.id','client_progress.account_id')
+                    ->whereBetween('client_progress.date', [$start_date,$end_date])
+                    ->where('client_progress.user_id', Auth::user()->id)
                     ->get();
                 }
 

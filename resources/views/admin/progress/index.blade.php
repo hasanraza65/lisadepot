@@ -4,11 +4,11 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-                                 <form action="/client-progress" method="GET" class="form m-4">
+                                 <form action="/client-progress" method="GET" class="form">
                                  
                                     <div class="row">
                                         @if(Auth::user()->user_role==1)
-                                        <div class="col-3">
+                                        <div class="col-md-3 col-6 mt-4">
                                              <label for="">Choose Client</label>
                                                  <select class="form-control" name="user_id" onchange="getClientAccount(this.value)">
                                                       
@@ -24,20 +24,19 @@
                                                  </select>
                                         </div>
                                         @endif
-                                        <div class="col-3">
+                                        <div class="col-md-3 col-6 mt-4">
                                              <label for="">Choose Account</label>
                                                  <select class="form-control" name="account_id" id="account_id">
                                                             <option value="" selected>Choose One</option>
                                                             @foreach($accounts as $account)
                                                             @if(isset($_GET['account_id']) && $_GET['account_id'] == $account->id)
                                                             <option value="{{$account->id}}" selected>{{$account->account_name}}</option>
-                                                            @else
-                                                            <option value="{{$account->id}}">{{$account->account_name}}</option>
+                                                            
                                                             @endif
                                                             @endforeach
                                                  </select>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-md-2 col-6 mt-4">
                                              <label for="">Start Date</label>
                                              @if(isset($_GET['start_date']))
                                              <input value="{{$_GET['start_date']}}" type="date" class="form-control" name="start_date" id="">
@@ -45,7 +44,7 @@
                                              <input type="date" class="form-control" name="start_date" id="">
                                              @endif
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-md-2 col-6 mt-4">
                                              <label for="">End Date</label>
                                              @if(isset($_GET['end_date']))
                                              <input value="{{$_GET['end_date']}}" type="date" class="form-control" name="end_date" id="">
@@ -53,8 +52,8 @@
                                              <input type="date" class="form-control" name="end_date" id="">
                                              @endif
                                         </div>
-                                        <div class="col-2">
-                                            <br>
+                                        <div class="col-md-2 col-12 mt-5">
+
                                             <input type="hidden" name="isfilter" value="true">
                                              <input type="submit" class="form-control btn btn-primary mt-2" value="Search"  name="search_progress" id="">
                                                 
@@ -63,7 +62,7 @@
                                     
                                  </form>
 <!-- Page Heading -->
-<h1 class="h3 mb-4 text-gray-800">Progress</h1>
+<h1 class="h3 mb-4 mt-4 text-gray-800">Progress</h1>
 
     @if(session()->has('message'))
         <div class="alert alert-success">
@@ -87,11 +86,34 @@
             <th>Action</th>
             @endif
         </tr>
+
+        @php 
+        $mega_total_sales = 0;
+        $mega_total_profit = 0;
+        $mega_total_loss = 0;
+        $mega_today_card_charge = 0;
+
+        @endphp
+
         @foreach($progress as $data)
+
+        <!--- calculating totals ---> 
+
+        @php
+        
+        $mega_total_sales = $data->total_sales+$mega_total_sales;
+        $mega_total_profit = $data->total_profit+$mega_total_profit;
+        $mega_total_loss = $data->total_loss+$mega_total_loss;
+        $mega_today_card_charge = $data->today_card_charge+$mega_today_card_charge;
+
+        @endphp 
+
+        <!--- ending calculation totals --->
+
         <tr>
             <td>{{$loop->iteration}}</td>
-            <td>{{$data->user_id}}</td>
-            <td>{{$data->account_id}}</td>
+            <td>{{$data->name}}</td>
+            <td>{{$data->account_name}}</td>
             <td>{{$data->total_sales}}</td>
             <td>${{$data->total_profit}}</td>
             <td>${{$data->total_loss}}</td>
@@ -113,6 +135,19 @@
             @endif
         </tr>
         @endforeach
+        <tfooter>
+            <tr class="table-primary">
+                <th>Total: </th>
+                <td></td>
+                <td></td>
+                <td>{{$mega_total_sales}}</td>
+                <td>${{$mega_total_profit}}</td>
+                <td>${{$mega_total_loss}}</td>
+                <td>${{$mega_today_card_charge}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfooter>
     </table>
 </div>
 
