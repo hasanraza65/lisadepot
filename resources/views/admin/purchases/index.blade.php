@@ -32,7 +32,7 @@
             <td>{{$loop->iteration}}</td>
             <td>{{$data->plan}}</td>
             <td>{{$data->email}}</td>
-            <td>£{{$data->package_price}}</td>
+            <td>${{$data->package_price}}</td>
             <td>{{$data->payment_status}}</td>
             <td>{{$data->created_at}}</td>
             <td>

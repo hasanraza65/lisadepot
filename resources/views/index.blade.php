@@ -38,7 +38,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Total Profit</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">£{{$total_profit}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">${{$total_profit}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -56,7 +56,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Total Loss</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">£{{$total_loss}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">${{$total_loss}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -136,7 +136,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Total Paid Orders</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">£{{$total_paid_orders}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">${{$total_paid_orders}}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

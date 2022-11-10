@@ -99,6 +99,19 @@ class ClientProgressController extends Controller
                     ->get(); 
                 }
 
+            }elseif($end_date != "" && $userid == "" && $accountid == "" && $start_date != ""){
+
+                if(Auth::user()->user_role == 1){ 
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->whereDate('date', '<=', $end_date)
+                    ->get(); 
+                }else{
+                    $progress = ClientProgress::join('users', 'users.id', 'client_progress.user_id')
+                    ->whereDate('date', '<=', $end_date)
+                    ->where('user_id', Auth::user()->id)
+                    ->get(); 
+                }
+
             }elseif($userid != "" && $accountid != "" && $start_date == "" && $end_date == ""){
 
                 if(Auth::user()->user_role == 1){ 

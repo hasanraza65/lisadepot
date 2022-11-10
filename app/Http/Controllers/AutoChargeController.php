@@ -38,7 +38,7 @@ class AutoChargeController extends Controller
                 $donepayment = Stripe\Charge::create ([
             
                     "amount" => $totalcost * 100,
-                    "currency" => "GBP",
+                    "currency" => "USD",
                     "customer" => $customertoken,
                     "description" => "Payment From Service Provider"
 
@@ -96,7 +96,7 @@ class AutoChargeController extends Controller
                 $donepayment = Stripe\Charge::create ([
             
                     "amount" => $totalcost * 100,
-                    "currency" => "GBP",
+                    "currency" => "USD",
                     "customer" => $customertoken,
                     "description" => "Payment From Service Provider"
 

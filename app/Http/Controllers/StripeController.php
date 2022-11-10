@@ -72,9 +72,9 @@ class StripeController extends Controller
       $donepayment = Stripe\Charge::create ([
             
                 "amount" => $totalcost * 100,
-                "currency" => "GBP",
+                "currency" => "USD",
                 "customer" => $customertoken,
-                "description" => "test 3"
+                "description" => "Payment By Lisadepot"
         ]);
 
         if($donepayment['status'] == 'succeeded'){
@@ -126,7 +126,7 @@ class StripeController extends Controller
         $donepayment = Stripe\Charge::create ([
             
             "amount" => $totalcost * 100,
-            "currency" => "GBP",
+            "currency" => "USD",
             "customer" => $user_stripe_token,
             "description" => "Charge By Admin"
     ]);
