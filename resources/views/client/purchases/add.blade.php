@@ -15,6 +15,30 @@
         <br>
     @endif
 
+    @php 
+
+    $is_va = 0;
+    $is_onetime = 0;
+    $is_prods = 0;
+    $price = 0;
+
+    @endphp
+
+    @foreach($service as $services)
+
+    @php 
+
+    $is_va = $services->is_va;
+    $is_onetime = $services->is_onetime;
+    $is_prods = $services->is_prods;
+    if($services->price != "" && $services->price != null){
+    $price = $services->price;
+    }
+
+    @endphp 
+
+    @endforeach
+
 <div class="">
     <form method="POST" action="/purchase-service" enctype="multipart/form-data">
         @csrf
@@ -37,14 +61,18 @@
             </select>
         </div>
 
+        @if($is_onetime == 0)
         <div class="mt-4">
             Choose Plan
             <select onchange="checkPlanType(this)" class="form-control" name="plan" id="plan" required>
                 <option value="" selected>Choose One...</option>
                 <option value="DS Free Plan">DS Free Plan</option>
+                @if($is_prods == 1)
                 <option value="Pro DS Plan">Pro DS Plan</option>
+                @endif
             </select>
         </div>
+        @endif
 
         <div id="package_2_type" class="mt-4 d-none">
             Choose Plan Type
@@ -58,7 +86,7 @@
 
         <div class="mt-4 pricediv">
             <label id="package_price_label">Price $</label>
-            <input value="0" type="text" id="package_price" name="package_price" class="form-control" readonly>
+            <input value="{{$price}}" type="text" id="package_price" name="package_price" class="form-control" readonly>
         </div>
 
         <div class="mt-4">

@@ -30,6 +30,35 @@
         </div>
 
         <div class="mt-4">
+            <div class="form-check">
+                <input type="hidden" name="is_onetime" value="0">
+                <input onchange="isOneTime()" class="form-check-input" name="is_onetime" type="checkbox" value="1" id="is_onetime">
+                <label class="form-check-label" for="is_onetime">
+                    One Time Charges
+                </label>
+            </div>
+            <div class="form-check">
+                <input type="hidden" name="is_prods" value="0">
+                <input class="form-check-input" name="is_prods" type="checkbox" value="1" id="is_prods">
+                <label class="form-check-label" for="is_prods">
+                    Pro DS Plan
+                </label>
+            </div>
+            <div class="form-check">
+                <input type="hidden" name="is_va" value="0">
+                <input class="form-check-input" name="is_va" type="checkbox" value="1" id="is_va">
+                <label class="form-check-label" for="is_va">
+                    VA
+                </label>
+            </div>
+        </div>
+
+        <div id="pricediv" class="mt-4 d-none">
+            Price
+            <input name="price" class="form-control" type="float" id="price" placeholder="Enter Price">
+        </div>
+
+        <div class="mt-4">
             <input type="submit" class="btn btn-primary">
         </div>
 

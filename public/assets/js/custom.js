@@ -57,3 +57,9 @@ function setPricePerHour(){
     $('#package_price_label').html("Price $ (Per Hour)");
     $('#package_price').val(price);
 }
+
+function isOneTime(){
+
+    $('#pricediv').toggleClass('d-none');
+
+}

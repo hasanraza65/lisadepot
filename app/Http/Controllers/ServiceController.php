@@ -100,9 +100,9 @@ class ServiceController extends Controller
      * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function edit(Service $service)
+    public function edit($id)
     {
-        $service = Service::find($service);
+        $service = Service::where('id',$id)->get();
 
         return view('admin.services.edit',compact(['service']));
     }
