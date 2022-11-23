@@ -126,7 +126,7 @@
             
             @else
             <a class="collapse-item" href="/purchase-service">My Purchases</a>
-            <a class="collapse-item" href="/purchase-service/create">Make New Purchase</a>
+            <a class="collapse-item" href="/buy-services">Make New Purchase</a>
             @endif
             
         </div>

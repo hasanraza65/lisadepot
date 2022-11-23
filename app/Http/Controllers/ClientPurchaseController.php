@@ -49,7 +49,12 @@ class ClientPurchaseController extends Controller
     public function create()
     {
         $accounts = ClientAccount::where('user_id',Auth::user()->id)->get();
+
+        if(isset($_GET['service'])){
         $service = Service::where('id',$_GET['service'])->get();
+        }else{
+        $service = Service::all();
+        }
         return view('client.purchases.add',compact(['accounts','service']));
     }
 

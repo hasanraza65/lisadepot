@@ -31,20 +31,20 @@
 
         <div class="">
         Card Holder Name
-        <input value="test" type="text" class="form-control" placeholder="Card Holder Name">
+        <input type="text" class="form-control" placeholder="Card Holder Name">
         </div>
 
         <div class="row mt-4">
             <div class="col-md-8">
 
             Card Number
-            <input value="4242424242424242" type="text" autocomplete='off' class='form-control card-number' size='20' placeholder="Card Number">
+            <input type="text" autocomplete='off' class='form-control card-number' size='20' placeholder="Card Number">
 
             </div>
             <div class="col-md-4">
 
             CSV
-            <input value="123" autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' size='4' type='text'>
+            <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' size='4' type='text'>
 
             </div>
         </div>
@@ -52,11 +52,11 @@
         <div class="row mt-4">
             <div class="col-md-6">
                 Card Expiry Month
-                <input value="12" class='form-control card-expiry-month' placeholder='MM' size='2' type='text'>
+                <input class='form-control card-expiry-month' placeholder='MM' size='2' type='text'>
             </div>
             <div class="col-md-6">
                 Card Expiry Year
-                <input value="2024"  class='form-control card-expiry-year' placeholder='YYYY' size='4' type='text'>
+                <input class='form-control card-expiry-year' placeholder='YYYY' size='4' type='text'>
             </div>
         </div>
 

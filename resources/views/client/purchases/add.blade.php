@@ -15,6 +15,7 @@
         <br>
     @endif
 
+
     @php 
 
     $is_va = 0;
@@ -24,6 +25,8 @@
 
     @endphp
 
+    @if(isset($_GET['service']))
+    
     @foreach($service as $services)
 
     @php 
@@ -38,6 +41,8 @@
     @endphp 
 
     @endforeach
+    
+    @endif
 
 <div class="">
     <form method="POST" action="/purchase-service" enctype="multipart/form-data">
@@ -47,13 +52,20 @@
             @if(isset($_GET['service']))
             <input name="service_id" value="{{$_GET['service']}}" type="hidden" class="form-control">
             @else
-            <input name="service_id" value="" type="hidden" class="form-control">
+            Choose Service
+            <select class="form-control" name="service_id" required>
+                Choose Service
+                <option value="" selected>Choose One...</option>
+                @foreach($service as $services)
+                <option value="{{$services->id}}">{{$services->name}}</option>
+                @endforeach
+            </select>
             @endif
         </div>
 
         <div class="mt-4">
             Choose Account
-            <select class="form-control" name="service_id" required>
+            <select class="form-control" name="account_id" required>
                 <option value="" selected>Choose One...</option>
                 @foreach($accounts as $accountss)
                 <option value="{{$accountss->id}}">{{$accountss->account_name}}</option>
